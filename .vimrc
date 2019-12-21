@@ -1,5 +1,12 @@
-"syntax on
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+set backspace=indent,eol,start
+
 syntax enable
+
 set t_Co=256
 " set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 " set list
