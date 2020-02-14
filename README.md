@@ -9,10 +9,10 @@ apt install -y ctags cscope
 ```
 git config --global diff.tool vimdiff
 git config --global difftool.prompt false
-git config --global alias.d difftool
+git config --global alias.vimdiff difftool
 ```
 
-Run *git d [file]* and see the changes in VIM.
+Run *git vimdiff [file]* and see the changes in VIM.
 You can still use the regular git diff command to get the patch output.
 
 Reference: https://michaelthessel.com/using-vimdiff-as-git-diff-tool/
