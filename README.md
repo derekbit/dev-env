@@ -16,3 +16,11 @@ Run *git vimdiff [file]* and see the changes in VIM.
 You can still use the regular git diff command to get the patch output.
 
 Reference: https://michaelthessel.com/using-vimdiff-as-git-diff-tool/
+
+
+### Some hot keys for vimdiff
+- fold
+```
+zo -> open fold
+zc -> close fold
+```
