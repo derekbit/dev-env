@@ -1,4 +1,4 @@
-# Environment Setup
+# Developement Environment and Tools
 
 ### Install ctags and cscope
 ```
@@ -24,3 +24,6 @@ Reference: https://michaelthessel.com/using-vimdiff-as-git-diff-tool/
 zo -> open fold
 zc -> close fold
 ```
+
+### Tools
+- [JSON validator](https://jsonformatter.curiousconcept.com/)
