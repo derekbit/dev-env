@@ -27,3 +27,4 @@ zc -> close fold
 
 ### Tools
 - [JSON validator](https://jsonformatter.curiousconcept.com/)
+- [Slides Code Highlighter])https://romannurik.github.io/SlidesCodeHighlighter/)
