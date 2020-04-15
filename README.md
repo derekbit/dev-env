@@ -37,7 +37,6 @@ https://advancedweb.hu/how-to-compare-file-revisions-with-fugitive-vim/
 ```
 
 - How to get commits for current file rather than revisions
-```
 For sake of completeness, once you have the revisions loaded in your buffer, you can browse through them by opening the quickfix list
 ```
 :Glog -- %
