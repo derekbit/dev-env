@@ -25,8 +25,11 @@ zo -> open fold
 zc -> close fold
 ```
 ### fugitive.vim
+
 https://github.com/tpope/vim-fugitive
+
 https://advancedweb.hu/how-to-compare-file-revisions-with-fugitive-vim/
+
 ```
 :Glog --oneline
 :Gvdiff

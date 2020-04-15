@@ -3,6 +3,8 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
+set diffopt+=vertical
+
 set backspace=indent,eol,start
 
 syntax enable
