@@ -24,6 +24,9 @@ Reference: https://michaelthessel.com/using-vimdiff-as-git-diff-tool/
 zo -> open fold
 zc -> close fold
 ```
+### fugitive.vim
+https://github.com/tpope/vim-fugitive
+
 
 ### Tools
 - [JSON validator](https://jsonformatter.curiousconcept.com/)
