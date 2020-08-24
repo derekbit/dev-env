@@ -1,0 +1,13 @@
+[user]
+	email = dereksu@qnap.com
+	name = Derek Su
+[core]
+	editor = vim
+[credential]
+	helper = store
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[alias]
+	d = difftool
