@@ -4,8 +4,9 @@ WORKINGDIR=$HOME/.naturlich
 
 create_symlinks ()
 {
-    ln -sfn $WORKINGDIR/.vimrc $HOME/.vimrc
-    ln -sfn $WORKINGDIR/.vim $HOME/.vim
+    ln -sfn $WORKINGDIR/vimrc $HOME/.vimrc
+    ln -sfn $WORKINGDIR/vim $HOME/.vim
+    ln -sfn $WORKINGDIR/gitconfig $HOME/.gitconfig
 }
 
 # Check and install pre-requitesite tools
