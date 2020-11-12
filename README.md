@@ -5,7 +5,7 @@
 One-line installation:
 
 ```
-bash <(curl -Ss https://github.com/naturlich/development-environment/blob/master/master/install.sh)
+bash <(curl -Ss https://raw.githubusercontent.com/naturlich/development-environment/master/install.sh)
 ```
 
 ### Using vimdiff as git diff tool
