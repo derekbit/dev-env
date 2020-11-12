@@ -1,8 +1,11 @@
 # Developement Environment and Tools
 
-### Install ctags and cscope
+### Installation
+
+One-line installation:
+
 ```
-apt install -y ctags cscope
+bash <(curl -Ss https://github.com/naturlich/development-environment/blob/master/master/install.sh)
 ```
 
 ### Using vimdiff as git diff tool
