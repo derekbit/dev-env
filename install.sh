@@ -37,7 +37,7 @@ preq_install ()
 install_fugitive ()
 {
     mkdir -p $HOME/.vim/pack/tpope/start
-    git clone https://tpope.io/vim/fugitive.git $HOME/.vim/pack/tpope/start
+    git clone https://tpope.io/vim/fugitive.git $HOME/.vim/pack/tpope/start/fugitive
     pushd $HOME/.vim/pack/tpope/start
     vim -u NONE -c "helptags fugitive/doc" -c q
     popd
