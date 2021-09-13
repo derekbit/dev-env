@@ -1,13 +1,6 @@
 #!/usr/bin/env sh
 
-WORKINGDIR=$HOME/.naturlich
-
-create_symlinks ()
-{
-    ln -sfn $WORKINGDIR/vimrc $HOME/.vimrc
-    ln -sfn $WORKINGDIR/vim $HOME/.vim
-    ln -sfn $WORKINGDIR/gitconfig $HOME/.gitconfig
-}
+WORKINGDIR=$HOME/.derekorbit
 
 # Check and install pre-requitesite tools
 preq_install ()
@@ -43,31 +36,52 @@ install_fugitive ()
     popd
 }
 
+install_ohmyzsh ()
+{
+    pushd $HOME
+    git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+    cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+    sed -i s/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"bira\"/g ~/.zshrc
+    chsh -s $(which zsh)
+    popd
+}
+
+install_ohmytmux ()
+{
+    pushd $HOME
+    git clone https://github.com/gpakosz/.tmux.git
+    ln -s -f .tmux/.tmux.conf
+    cp .tmux/.tmux.conf.local .
+    popd
+}
+
+install_vim ()
+{
+    git clone https://github.com/derekorbit/development-environment.git $WORKINGDIR
+
+    ln -sfn $WORKINGDIR/vimrc $HOME/.vimrc
+    ln -sfn $WORKINGDIR/vim $HOME/.vim
+}
+
 cleanup ()
 {
-    if [ -d "$WORKINGDIR" ]; then
-        rm -rf "$WORKINGDIR"
-    fi
-
-    if [ -d "$HOME/.vim" ]; then
-        rm -rf "$HOME/.vim"
-    fi
-
-    if [ -d "$HOME/.vimrc" ]; then
-        rm -rf "$HOME/.vimrc"
-    fi
+    [ ! -d "$WORKINGDIR" ] || rm -rf "$WORKINGDIR"
+    [ ! -d "$HOME/.vim" ] || rm -rf "$HOME/.vim"
+    [ ! -d "$HOME/.vimrc" ] || rm -rf "$HOME/.vimrc"
+    [ ! -d "$HOME/.oh-my-zsh" ] || rm -rf "$HOME/.oh-my-zsh"
+    [ ! -d "$HOME/.tmux" ] || rm -rf "$HOME/.tmux"
+    [ ! -d "$HOME/.tmux.conf" ] || rm -rf "$HOME/.tmux.conf"
+    [ ! -d "$HOME/.tmux.conf.local" ] || rm -rf "$HOME/.tmux.conf.local"
 }
 
 #### Main function ####
 cleanup
 
-preq_install vim git cscope ctags
+preq_install vim git cscope ctags tmux zsh
 
-git clone https://github.com/naturlich/development-environment.git $WORKINGDIR
-
-create_symlinks
-
-# Install necessary plugins
+install_vim
 install_fugitive
+install_ohmytmux
+install_ohmyzsh
 
 echo "Finish and enjoy it!!!"
