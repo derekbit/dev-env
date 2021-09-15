@@ -2,24 +2,50 @@
 
 WORKINGDIR=$HOME/.derekorbit
 
-# Check and install pre-requitesite tools
-preq_install ()
+msg ()
+{
+    printf '%b\n' "$1" >&2
+}
+
+success ()
+{
+    msg "${Green}[✔]${Color_off} ${1}${2}"
+}
+
+info ()
+{
+    msg "${Blue}[➭]${Color_off} ${1}${2}"
+}
+
+error ()
+{
+    msg "${Red}[✘]${Color_off} ${1}${2}"
+    exit 1
+}
+
+warn ()
+{
+    msg "${Yellow}[⚠]${Color_off} ${1}${2}"
+}
+
+install_prerequisites ()
 {
     local dist=`awk -F= '/^NAME/{print $2}' /etc/os-release`
 
     for tool in $@; do
         which $tool > /dev/null
         if [ "$?" != "0" ]; then
-            echo "Install '$tool' at '$dist'..."
+            info "Install '$tool' at '$dist'..."
 
             case "$dist" in
                 "\"Ubuntu\"")
-                    apt-get install -y $tool
+                    sudo apt-get install -y $tool
                     ;;
                 "\"CentOS Linux\"")
-                    yum install -y $tool
+                    sudo yum install -y $tool
                     ;;
                 *)
+                    info "Unsupported distribution: $dist"
                     exit 1
                     ;;
             esac
@@ -27,17 +53,24 @@ preq_install ()
     done
 }
 
-install_fugitive ()
+configure_golang ()
 {
-    mkdir -p $HOME/.vim/pack/tpope/start
-    git clone https://tpope.io/vim/fugitive.git $HOME/.vim/pack/tpope/start/fugitive
-    pushd $HOME/.vim/pack/tpope/start
-    vim -u NONE -c "helptags fugitive/doc" -c q
-    popd
+    info "Configure golang"
+
+    wget "https://dl.google.com/go/$(curl 'https://golang.org/VERSION?m=text').linux-amd64.tar.gz"
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $(curl 'https://golang.org/VERSION?m=text').linux-amd64.tar.gz
+
+    mkdir -p $HOME/go
+    echo "PATH=$PATH:/usr/local/go/bin" >> $HOME/.profile
+    echo "GOPATH=$HOME/go" >> $HOME/.profile
 }
 
-install_ohmyzsh ()
+configure_ohmyzsh ()
 {
+    info "Configure oh-my-zsh"
+
+    [ ! -e "$HOME/.oh-my-zsh" ] || rm -rf "$HOME/.oh-my-zsh"
+
     pushd $HOME
     git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
     cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
@@ -46,8 +79,14 @@ install_ohmyzsh ()
     popd
 }
 
-install_ohmytmux ()
+configure_ohmytmux ()
 {
+    info "Configure oh-my-tmux"
+ 
+    [ ! -e "$HOME/.tmux" ] || rm -rf "$HOME/.tmux"
+    [ ! -e "$HOME/.tmux.conf" ] || rm -rf "$HOME/.tmux.conf"
+    [ ! -e "$HOME/.tmux.conf.local" ] || rm -rf "$HOME/.tmux.conf.local"
+
     pushd $HOME
     git clone https://github.com/gpakosz/.tmux.git
     ln -s -f .tmux/.tmux.conf
@@ -55,33 +94,57 @@ install_ohmytmux ()
     popd
 }
 
-install_vim ()
+configure_vim ()
 {
-    git clone https://github.com/derekorbit/development-environment.git $WORKINGDIR
+   info "Configure vim"
 
-    ln -sfn $WORKINGDIR/vimrc $HOME/.vimrc
-    ln -sfn $WORKINGDIR/vim $HOME/.vim
+   [ ! -e "$HOME/.vim/pack/plugins/start/vim-go" ] || rm -rf "$HOME/.vim/pack/plugins/start/vim-go"
+
+    git clone https://github.com/derekorbit/development-environment.git "$WORKINGDIR"
+
+    # Backup
+    mkdir -p $WORKINGDIR/backup
+    [ ! -e "$HOME/.vimrc" ] || cp -a "$HOME/.vimrc" "$WORKINGDIR/backup/"
+    [ ! -e "$HOME/.vim" ] || cp -a "$HOME/.vim" "$WORKINGDIR/backup/"
+    [ ! -e "$HOME/.vimrc" ] || rm -rf "$HOME/.vimrc"
+    [ ! -e "$HOME/.vim" ] || rm -rf "$HOME/.vim"
+
+    ln -sfn "$WORKINGDIR/.vimrc" "$HOME/.vimrc"
+    ln -sfn "$WORKINGDIR/vim" "$HOME/.vim"
+}
+
+configure_vimplug ()
+{
+    info "Configure vim-plug"
+
+    [ ! -e "$HOME/.vim/autoload/plug.vim" ] || rm -rf "$HOME/.vim/autoload/plug.vim"
+
+    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+    # Install plugins
+    vim +PlugInstall +qall
+}
+
+configure_vimgo ()
+{
+    info "Configure vim-go"
+    git clone https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go
 }
 
 cleanup ()
 {
-    [ ! -d "$WORKINGDIR" ] || rm -rf "$WORKINGDIR"
-    [ ! -d "$HOME/.vim" ] || rm -rf "$HOME/.vim"
-    [ ! -d "$HOME/.vimrc" ] || rm -rf "$HOME/.vimrc"
-    [ ! -d "$HOME/.oh-my-zsh" ] || rm -rf "$HOME/.oh-my-zsh"
-    [ ! -d "$HOME/.tmux" ] || rm -rf "$HOME/.tmux"
-    [ ! -d "$HOME/.tmux.conf" ] || rm -rf "$HOME/.tmux.conf"
-    [ ! -d "$HOME/.tmux.conf.local" ] || rm -rf "$HOME/.tmux.conf.local"
+    [ ! -e "$WORKINGDIR" ] || rm -rf "$WORKINGDIR"
 }
 
 #### Main function ####
 cleanup
+install_prerequisites vim git bash-completion cscope ctags tmux zsh
 
-preq_install vim git cscope ctags tmux zsh
-
-install_vim
-install_fugitive
-install_ohmytmux
-install_ohmyzsh
+configure_golang
+configure_vim
+configure_vimplug
+configure_ohmytmux
+configure_ohmyzsh
 
 echo "Finish and enjoy it!!!"

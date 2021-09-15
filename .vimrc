@@ -84,3 +84,19 @@ nmap <F10> :TrinityToggleTagList<CR>
 
 " Open and close the NERD Tree separately 
 nmap <F11> :TrinityToggleNERDTree<CR>  
+
+" Vim-Go Settings
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+
+
+" Plugins
+call plug#begin('~/.vim/plugged')
+
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'preservim/nerdtree'
+
+call plug#end()
