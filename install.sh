@@ -61,8 +61,6 @@ configure_golang ()
     sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $(curl 'https://golang.org/VERSION?m=text').linux-amd64.tar.gz
 
     mkdir -p $HOME/go
-    echo "PATH=$PATH:/usr/local/go/bin" >> $HOME/.profile
-    echo "GOPATH=$HOME/go" >> $HOME/.profile
 }
 
 configure_ohmyzsh ()
@@ -77,6 +75,10 @@ configure_ohmyzsh ()
     sed -i s/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"bira\"/g ~/.zshrc
     chsh -s $(which zsh)
     popd
+
+    # Update ~/.zshrc
+    echo "PATH=$PATH:/usr/local/go/bin" >> $HOME/.zshrc
+    echo "GOPATH=$HOME/go" >> $HOME/.zshrc
 }
 
 configure_ohmytmux ()
