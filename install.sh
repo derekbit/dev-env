@@ -76,10 +76,11 @@ configure_ohmyzsh ()
     popd
 
     # Update ~/.zshrc
-    echo "GOPATH=$HOME/go" >> $HOME/.zshrc
-    echo "GOBIN=$GOPATH/bin" >> $HOME/.zshrc
+    export PATH=$PATH:/usr/local/go/bin
+    echo "export GOPATH=$HOME/go" >> $HOME/.zshrc
+    echo "export GOBIN=$HOME/go/bin" >> $HOME/.zshrc
     source $HOME/.zshrc
-    export PATH="$PATH:/usr/local/go/bin:$(go env GOPATH)/bin" >> $HOME/.zshrc
+    echo "export PATH=$PATH:/usr/local/go/bin:$(go env GOPATH)/bin" >> $HOME/.zshrc
 
     # Install gopls
     go install github.com/golang/tools/cmd/gopls@latest
