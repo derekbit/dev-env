@@ -73,12 +73,18 @@ configure_ohmyzsh ()
     git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
     cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
     sed -i s/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"bira\"/g ~/.zshrc
-    chsh -s $(which zsh)
     popd
 
     # Update ~/.zshrc
-    echo "PATH=$PATH:/usr/local/go/bin" >> $HOME/.zshrc
     echo "GOPATH=$HOME/go" >> $HOME/.zshrc
+    echo "GOBIN=$GOPATH/bin" >> $HOME/.zshrc
+    source $HOME/.zshrc
+    export PATH="$PATH:/usr/local/go/bin:$(go env GOPATH)/bin" >> $HOME/.zshrc
+
+    # Install gopls
+    go install github.com/golang/tools/cmd/gopls@latest
+
+    chsh -s $(which zsh)
 }
 
 configure_ohmytmux ()
