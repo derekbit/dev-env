@@ -79,7 +79,6 @@ configure_ohmyzsh ()
     export PATH=$PATH:/usr/local/go/bin
     echo "export GOPATH=$HOME/go" >> $HOME/.zshrc
     echo "export GOBIN=$HOME/go/bin" >> $HOME/.zshrc
-    source $HOME/.zshrc
     echo "export PATH=$PATH:/usr/local/go/bin:$(go env GOPATH)/bin" >> $HOME/.zshrc
 
     # Install gopls
