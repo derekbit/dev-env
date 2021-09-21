@@ -9,6 +9,17 @@ set backspace=indent,eol,start
 
 syntax enable
 
+
+" Scroll with mouse in vim in tmux
+set mouse=a
+if has("mouse_sgr")
+    set ttymouse=sgr
+else
+    set ttymouse=xterm2
+end
+
+
+
 set t_Co=256
 " set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 " set list
