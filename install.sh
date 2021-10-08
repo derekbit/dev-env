@@ -61,45 +61,14 @@ configure_golang ()
     sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf $(curl 'https://golang.org/VERSION?m=text').linux-amd64.tar.gz
 
     mkdir -p $HOME/go
-}
 
-configure_ohmyzsh ()
-{
-    info "Configure oh-my-zsh"
-
-    [ ! -e "$HOME/.oh-my-zsh" ] || rm -rf "$HOME/.oh-my-zsh"
-
-    pushd $HOME
-    git clone https://github.com/ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
-    cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-    sed -i s/ZSH_THEME=\"robbyrussell\"/ZSH_THEME=\"bira\"/g ~/.zshrc
-    popd
-
-    # Update ~/.zshrc
     export PATH=$PATH:/usr/local/go/bin
-    echo "export GOPATH=$HOME/go" >> $HOME/.zshrc
-    echo "export GOBIN=$HOME/go/bin" >> $HOME/.zshrc
-    echo "export PATH=$PATH:/usr/local/go/bin:$(go env GOPATH)/bin" >> $HOME/.zshrc
+    echo "export GOPATH=$HOME/go" >> $HOME/.bashrc
+    echo "export GOBIN=$HOME/go/bin" >> $HOME/.bashrc
+    echo "export PATH=$PATH:/usr/local/go/bin:$(go env GOPATH)/bin" >> $HOME/.bashrc
 
     # Install gopls
     go install github.com/golang/tools/cmd/gopls@latest
-
-    chsh -s $(which zsh)
-}
-
-configure_ohmytmux ()
-{
-    info "Configure oh-my-tmux"
- 
-    [ ! -e "$HOME/.tmux" ] || rm -rf "$HOME/.tmux"
-    [ ! -e "$HOME/.tmux.conf" ] || rm -rf "$HOME/.tmux.conf"
-    [ ! -e "$HOME/.tmux.conf.local" ] || rm -rf "$HOME/.tmux.conf.local"
-
-    pushd $HOME
-    git clone https://github.com/gpakosz/.tmux.git
-    ln -s -f .tmux/.tmux.conf
-    cp .tmux/.tmux.conf.local .
-    popd
 }
 
 configure_vim ()
@@ -152,7 +121,5 @@ install_prerequisites vim git bash-completion cscope ctags tmux zsh
 configure_golang
 configure_vim
 configure_vimplug
-configure_ohmytmux
-configure_ohmyzsh
 
 echo "Finish and enjoy it!!!"
