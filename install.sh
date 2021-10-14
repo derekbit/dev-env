@@ -116,10 +116,9 @@ cleanup ()
 
 #### Main function ####
 cleanup
-install_prerequisites vim git bash-completion cscope ctags tmux zsh
+install_prerequisites vim git bash-completion cscope ctags
 
 configure_golang
 configure_vim
-configure_vimplug
 
 echo "Finish and enjoy it!!!"
