@@ -5,7 +5,7 @@
 One-line installation:
 
 ```
-bash <(curl -Ss https://raw.githubusercontent.com/derekorbit/dev-env/basic/install.sh)
+bash <(curl -Ss https://raw.githubusercontent.com/derekbit/dev-env/basic/install.sh)
 ```
 
 ### Using vimdiff as git diff tool
