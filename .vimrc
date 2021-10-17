@@ -18,8 +18,6 @@ else
     set ttymouse=xterm2
 end
 
-
-
 set t_Co=256
 " set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 " set list
@@ -102,12 +100,3 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
-
-
-" Plugins
-call plug#begin('~/.vim/plugged')
-
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'preservim/nerdtree'
-
-call plug#end()
