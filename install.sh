@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-WORKINGDIR=$HOME/.derekorbit
+WORKINGDIR=$HOME/.derekbit
 
 msg ()
 {
@@ -77,7 +77,7 @@ configure_vim ()
 
    [ ! -e "$HOME/.vim/pack/plugins/start/vim-go" ] || rm -rf "$HOME/.vim/pack/plugins/start/vim-go"
 
-    git clone https://github.com/derekorbit/development-environment.git "$WORKINGDIR"
+    git clone -b basic https://github.com/derekbit/dev-env.git "$WORKINGDIR"
 
     # Backup
     mkdir -p $WORKINGDIR/backup
