@@ -1,4 +1,4 @@
-# Developement Environment and Tools
+# Development Environment and Tools
 
 ### Installation
 
