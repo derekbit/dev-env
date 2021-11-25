@@ -2,7 +2,7 @@
 
 WORKINGDIR=$HOME/.derekbit
 
-GO_VERSION=1.17.3
+GO_VERSION="1.17.3"
 
 msg ()
 {
@@ -59,8 +59,8 @@ configure_golang ()
 {
     info "Configure golang"
 
-    wget "https://go.dev/dl/go$(GO_VERSION).linux-amd64.tar.gz"
-    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go$(GO_VERSION).linux-amd64.tar.gz
+    wget "https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz"
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz
 
     mkdir -p $HOME/go
 
